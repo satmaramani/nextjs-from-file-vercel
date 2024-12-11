@@ -4,13 +4,14 @@ import jwt from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") {
+
+    console.log(" This is the request method => ", req.method);
+
+    if (req.method?.toLowerCase() !== "post") {
         return res.status(405).json({ error: "Method Not Allowed" });
     }
 
     const { email, password } = req.body;
-
-
 
     // Simulate fetching user from file
     const user = findUser(email);
