@@ -25,6 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(401).json({ error: "Invalid email or password 2" });
     }
 
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+        throw new Error("JWT_SECRET is not defined - please define it in env or in vercel settings env variables");
+    }
+
     const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET!, {
         expiresIn: "1d",
     });
